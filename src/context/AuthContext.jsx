@@ -8,22 +8,38 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Helper function to get cookie value
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  };
+
   useEffect(() => {
     // Check if user is authenticated on component mount
     const checkAuthStatus = async () => {
-      const token = localStorage.getItem('auth_token');
+      // Check for token in localStorage or cookies
+      const token = localStorage.getItem('auth_token') || getCookie('token');
       
       if (token) {
         try {
           // Verify token with backend and get user data
           const userData = await apiService.getUserProfile();
-          setCurrentUser(userData.user);
+          setCurrentUser(userData.data.user);
           setIsAuthenticated(true);
+          
+          // Sync token to localStorage if it came from cookie
+          if (!localStorage.getItem('auth_token') && getCookie('token')) {
+            localStorage.setItem('auth_token', getCookie('token'));
+          }
         } catch (error) {
           console.error('Auth check failed:', error);
-          // Token is invalid, clear it
+          // Token is invalid, clear everything
           localStorage.removeItem('auth_token');
           localStorage.removeItem('user_data');
+          // Clear cookie by setting it to expire
+          document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
           setIsAuthenticated(false);
           setCurrentUser(null);
         }
@@ -43,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiService.login(credentials);
       
+      // Store token in localStorage and sync user data
       localStorage.setItem('auth_token', response.token);
       localStorage.setItem('user_data', JSON.stringify(response.user));
       setCurrentUser(response.user);
@@ -62,7 +79,6 @@ export const AuthProvider = ({ children }) => {
       return { success: true, message: response.message };
     } catch (error) {
       console.error('Registration error:', error);
-      // Handle specific validation errors from backend
       if (error.message && error.message.includes('validation')) {
         return { success: false, error: 'Please check your input and try again.' };
       }
@@ -73,7 +89,7 @@ export const AuthProvider = ({ children }) => {
   // Verify OTP function
   const verifyOTP = async (email, otp, registrationData) => {
     try {
-      console.log('Verifying OTP:', { email, otp: String(otp), registrationData }); // Debug log
+      console.log('Verifying OTP:', { email, otp: String(otp), registrationData });
       
       const response = await apiService.verifyOTP(email, String(otp), registrationData);
       
@@ -90,7 +106,6 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('OTP verification error:', error);
       
-      // Handle specific error messages
       if (error.message && error.message.includes('Invalid or expired OTP')) {
         return { success: false, error: 'The OTP you entered is invalid or has expired. Please request a new one.' };
       }
@@ -100,9 +115,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Logout function
-  const logout = () => {
+  const logout = async () => {
+    try {
+      // Call backend logout to clear server-side cookie
+      await apiService.logout();
+    } catch (error) {
+      console.error('Logout API error:', error);
+      // Continue with client-side cleanup even if server call fails
+    }
+    
+    // Clear client-side storage
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user_data');
+    // Clear cookie
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     setCurrentUser(null);
     setIsAuthenticated(false);
   };

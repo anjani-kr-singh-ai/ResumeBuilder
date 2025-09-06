@@ -5,6 +5,14 @@ class ApiService {
     this.baseURL = API_BASE_URL;
   }
 
+  // Helper function to get cookie value
+  getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+  }
+
   async request(endpoint, options = {}) {
     const url = `${this.baseURL}${endpoint}`;
     const config = {
@@ -12,11 +20,12 @@ class ApiService {
         'Content-Type': 'application/json',
         ...options.headers,
       },
+      credentials: 'include', // Include cookies in requests
       ...options,
     };
 
-    // Add auth token if available
-    const token = localStorage.getItem('auth_token');
+    // Add auth token from localStorage or cookie
+    const token = localStorage.getItem('auth_token') || this.getCookie('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -45,16 +54,11 @@ class ApiService {
   }
 
   async verifyOTP(email, otp, registrationData) {
-    console.log('API verifyOTP called with:', { email, otp: String(otp), registrationData }); // Debug log
+    console.log('API verifyOTP called with:', { email, otp: String(otp), registrationData });
     
     return this.request('/auth/verify-otp', {
       method: 'POST',
-      body: JSON.stringify({ 
-        email: String(email).trim(), // Only trim, preserve original format
-        otp: String(otp).trim(), 
-        name: registrationData?.name, 
-        password: registrationData?.password 
-      }),
+      body: JSON.stringify({ email, otp: String(otp), registrationData }),
     });
   }
 
@@ -62,6 +66,12 @@ class ApiService {
     return this.request('/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
+    });
+  }
+
+  async logout() {
+    return this.request('/auth/logout', {
+      method: 'POST',
     });
   }
 
@@ -80,7 +90,7 @@ class ApiService {
   }
 
   async getUserProfile() {
-    return this.request('/auth/profile');
+    return this.request('/auth/me'); // Changed from '/auth/profile' to '/auth/me'
   }
 
   async updateProfile(profileData) {
@@ -111,15 +121,16 @@ class ApiService {
 
   async downloadResume(resumeId) {
     const response = await fetch(`${this.baseURL}/resumes/download/${resumeId}`, {
+      credentials: 'include',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
-      },
+        Authorization: `Bearer ${localStorage.getItem('auth_token') || this.getCookie('token')}`
+      }
     });
-
+    
     if (!response.ok) {
       throw new Error('Failed to download resume');
     }
-
+    
     return response.blob();
   }
 
