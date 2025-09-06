@@ -23,56 +23,18 @@ const SignIn = () => {
     setIsLoading(true);
     
     try {
-      // Simulate an API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const result = await login({ email, password });
       
-      // Basic validation (in real app, this would be server-side)
-      if (email && password) {
-        // Mock user data - in real app, this would come from your API
-        const userData = {
-          id: 'user-123',
-          name: email.split('@')[0], // Use email prefix as name for demo
-          email: email,
-          profileImage: null
-        };
-        
-        const token = 'mock-jwt-token-' + Date.now();
-        
-        // Use AuthContext login function
-        login(userData, token);
-        
+      if (result.success) {
         // Navigate to intended destination
         navigate(from, { replace: true });
       } else {
-        setError('Please enter both email and password.');
+        setError(result.error || 'Login failed. Please try again.');
       }
       
     } catch (error) {
-      setError('Invalid email or password. Please try again.');
+      setError('Network error. Please check your connection and try again.');
       console.error('Login error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // Demo login function
-  const handleDemoLogin = async () => {
-    setIsLoading(true);
-    try {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      const userData = {
-        id: 'demo-user',
-        name: 'Demo User',
-        email: 'demo@resumemaker.com',
-        profileImage: null
-      };
-      
-      const token = 'demo-token-' + Date.now();
-      login(userData, token);
-      navigate(from, { replace: true });
-    } catch (error) {
-      setError('Demo login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

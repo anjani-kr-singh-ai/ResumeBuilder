@@ -1,0 +1,71 @@
+/* ... existing styles ... */
+
+.otp-input {
+  text-align: center;
+  font-size: 1.2rem;
+  letter-spacing: 0.5rem;
+  font-weight: bold;
+}
+
+.black-button {
+  background-color: #000000 !important;
+  color: white !important;
+  border: none;
+}
+
+.black-button:hover {
+  background-color: #333333 !important;
+}
+
+.black-button:disabled {
+  background-color: #666666 !important;
+  cursor: not-allowed;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #c3e6cb;
+}
+
+.otp-instruction {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.back-button {
+  background: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1rem;
+  }
+  
+  .auth-card {
+    padding: 1.5rem;
+  }
+  
+  .form-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}

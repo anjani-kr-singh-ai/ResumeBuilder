@@ -218,9 +218,21 @@
   border-left: 4px solid #dc3545;
 }
 
+/* Additional styles for SignUp component */
+
+.otp-input {
+  text-align: center;
+  font-size: 1.2rem;
+  letter-spacing: 0.5rem;
+  font-weight: bold;
+}
+
 .success-message {
   text-align: center;
   padding: 2rem 1rem;
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.05), rgba(102, 16, 242, 0.03));
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
 }
 
 .success-icon {
@@ -235,99 +247,93 @@
   font-size: 1.8rem;
   margin: 0 auto 1.5rem;
   box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+  font-weight: bold;
 }
 
 .success-message h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: #212529;
+  font-weight: 700;
 }
 
 .success-message p {
   color: #6c757d;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
+  font-size: 1rem;
 }
 
-.terms-checkbox {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 1.5rem;
-}
-
-.terms-checkbox input {
-  margin: 4px 10px 0 0;
-  width: 18px;
-  height: 18px;
-  accent-color: #0d6efd;
-}
-
-.terms-checkbox label {
-  font-size: 0.9rem;
-  color: #495057;
-  line-height: 1.5;
-}
-
-.terms-checkbox a {
-  color: #0d6efd;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.terms-checkbox a:hover {
-  text-decoration: underline;
-}
-
-.loading-spinner {
-  width: 24px;
-  height: 24px;
-  border: 3px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.password-hint {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+  display: block;
+  line-height: 1.4;
 }
 
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
-}
-
-.back-button {
-  flex: 0.4;
-  padding: 0.75rem;
-  background-color: transparent;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s ease;
-}
-
-.back-button:hover {
-  background-color: #f1f3f5;
-}
-
-.resend-otp {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #6c757d;
   margin-top: 1rem;
 }
 
-.resend-otp button {
-  background: none;
-  border: none;
-  color: #007bff;
+.back-button {
+  background: transparent;
+  border: 2px solid #0d6efd;
+  color: #0d6efd;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 500;
-  padding: 0;
-  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  min-width: 150px;
+}
+
+.back-button:hover {
+  background: #0d6efd;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.back-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Enhanced responsive design */
+@media (max-width: 576px) {
+  .success-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .success-message h3 {
+    font-size: 1.3rem;
+  }
+  
+  .success-message p {
+    font-size: 0.9rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .back-button {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .password-hint {
+    font-size: 0.75rem;
+  }
 }
 
 .terms-checkbox {
@@ -409,4 +415,66 @@
   .auth-redirect {
     margin-top: 1.5rem;
   }
+}
+
+.password-hint {
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 4px;
+  display: block;
+}
+
+.auth-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.back-button {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 12px;
+}
+
+.back-button:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.resend-otp {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.resend-otp button {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.resend-otp button:hover {
+  color: var(--primary-dark);
 }

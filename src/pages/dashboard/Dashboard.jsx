@@ -1,49 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ProfileDetails from './ProfileDetails';
 import ResumeList from './ResumeList';
-// Removed Analytics import since we're removing the Activity Summary section
 import './Dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { currentUser, isAuthenticated } = useAuth();
   
-  // Mock user data - in a real app, this would come from an API or authentication context
-  const [user, setUser] = useState({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    age: 28,
+  // State for user data (will be fetched from backend)
+  const [user, setUser] = useState(currentUser || {
+    name: 'Loading...',
+    email: 'Loading...',
+    age: null,
     profilePicture: null,
-    joined: 'August 2025'
+    joined: 'Loading...'
   });
 
   // Mock resume data - in a real app, this would come from an API
-  const [resumes, setResumes] = useState([
-    {
-      id: 1,
-      title: 'Software Developer Resume',
-      lastModified: '2025-09-01T14:30:00',
-      template: 'Professional',
-      thumbnail: null
-    },
-    {
-      id: 2,
-      title: 'UI/UX Designer CV',
-      lastModified: '2025-08-25T10:15:00',
-      template: 'Creative',
-      thumbnail: null
-    },
-    {
-      id: 3,
-      title: 'Project Manager Resume',
-      lastModified: '2025-08-20T09:45:00',
-      template: 'Minimal',
-      thumbnail: null
+  const [resumes, setResumes] = useState([]);
+  const [isLoadingResumes, setIsLoadingResumes] = useState(true);
+
+  useEffect(() => {
+    // Update user data when currentUser changes
+    if (currentUser) {
+      setUser({
+        name: currentUser.name || currentUser.email?.split('@')[0] || 'User',
+        email: currentUser.email,
+        age: currentUser.age || null,
+        profilePicture: currentUser.profilePicture || null,
+        joined: currentUser.createdAt ? new Date(currentUser.createdAt).toLocaleDateString('en-US', { 
+          year: 'numeric', 
+          month: 'long' 
+        }) : 'Recently'
+      });
     }
-  ]);
+  }, [currentUser]);
+
+  useEffect(() => {
+    // Fetch user's resumes from backend
+    const fetchResumes = async () => {
+      try {
+        // TODO: Replace with actual API call when resume endpoints are ready
+        // const response = await apiService.getUserResumes();
+        // setResumes(response.resumes);
+        
+        // For now, use mock data
+        setTimeout(() => {
+          setResumes([
+            {
+              id: 1,
+              title: 'Software Developer Resume',
+              lastModified: '2025-09-01T14:30:00',
+              template: 'Professional',
+              thumbnail: null
+            },
+            {
+              id: 2,
+              title: 'UI/UX Designer CV',
+              lastModified: '2025-08-25T10:15:00',
+              template: 'Creative',
+              thumbnail: null
+            },
+            {
+              id: 3,
+              title: 'Project Manager Resume',
+              lastModified: '2025-08-20T09:45:00',
+              template: 'Minimal',
+              thumbnail: null
+            }
+          ]);
+          setIsLoadingResumes(false);
+        }, 1000);
+        
+      } catch (error) {
+        console.error('Error fetching resumes:', error);
+        setIsLoadingResumes(false);
+      }
+    };
+
+    if (isAuthenticated) {
+      fetchResumes();
+    }
+  }, [isAuthenticated]);
 
   // Handler functions for resume actions
   const handleEditResume = (id) => {
@@ -71,6 +114,8 @@ const Dashboard = () => {
   // Function to update user profile
   const updateUserProfile = (updatedUser) => {
     setUser({ ...user, ...updatedUser });
+    // TODO: Add API call to update user profile on backend
+    // apiService.updateProfile(updatedUser);
   };
 
   // Animation variants
@@ -136,7 +181,6 @@ const Dashboard = () => {
             variants={itemVariants}
           >
             <ProfileDetails user={user} onUpdateProfile={updateUserProfile} />
-            {/* Removed Analytics component - Activity Summary section */}
           </motion.div>
           
           <motion.div 
@@ -145,6 +189,7 @@ const Dashboard = () => {
           >
             <ResumeList 
               resumes={resumes} 
+              isLoading={isLoadingResumes}
               onEdit={handleEditResume}
               onDownload={handleDownloadResume}
               onDelete={handleDeleteResume}
