@@ -43,12 +43,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await apiService.login(credentials);
       
-      localStorage.setItem('auth_token', response.data.token);
-      localStorage.setItem('user_data', JSON.stringify(response.data.user));
-      setCurrentUser(response.data.user);
+      localStorage.setItem('auth_token', response.token);
+      localStorage.setItem('user_data', JSON.stringify(response.user));
+      setCurrentUser(response.user);
       setIsAuthenticated(true);
       
-      return { success: true, user: response.data.user };
+      return { success: true, user: response.user };
     } catch (error) {
       console.error('Login error:', error);
       return { success: false, error: error.message };
@@ -77,13 +77,13 @@ export const AuthProvider = ({ children }) => {
       
       const response = await apiService.verifyOTP(email, String(otp), registrationData);
       
-      if (response && response.data) {
-        localStorage.setItem('auth_token', response.data.token);
-        localStorage.setItem('user_data', JSON.stringify(response.data.user));
-        setCurrentUser(response.data.user);
+      if (response && response.token) {
+        localStorage.setItem('auth_token', response.token);
+        localStorage.setItem('user_data', JSON.stringify(response.user));
+        setCurrentUser(response.user);
         setIsAuthenticated(true);
         
-        return { success: true, user: response.data.user };
+        return { success: true, user: response.user };
       } else {
         return { success: false, error: 'Invalid response from server' };
       }
