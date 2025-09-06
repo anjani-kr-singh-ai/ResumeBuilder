@@ -1,0 +1,419 @@
+/* Define CSS Variables for Theme */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --accent-primary: #5e60ce;
+  --accent-secondary: #6930c3;
+  --navbar-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --btn-primary-bg: linear-gradient(135deg, #5e60ce 0%, #6930c3 100%);
+  --btn-primary-text: #ffffff;
+  --btn-secondary-bg: #f1f2f6;
+  --btn-secondary-text: #495057;
+  --navbar-border: 1px solid rgba(0, 0, 0, 0.05);
+  --logo-text-primary: #5e60ce;
+  --logo-text-secondary: #6930c3;
+  --navbar-bg: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  --navbar-bg-scrolled: linear-gradient(180deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 249, 250, 0.97) 100%);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.35);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --card-border: 1px solid var(--border-color);
+}
+
+/* Base Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 1000;
+  background: var(--navbar-bg);
+  transition: all 0.3s ease-in-out;
+  border-bottom: var(--navbar-border);
+  box-shadow: var(--navbar-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.navbar-scrolled {
+  height: 60px;
+  background: var(--navbar-bg-scrolled);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Right section with nav elements */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Logo Styles */
+.navbar-logo h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  display: flex;
+  position: relative;
+}
+
+.logo-text-primary {
+  color: var(--logo-text-primary);
+  background: linear-gradient(90deg, var(--logo-text-primary), var(--accent-primary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.logo-text-secondary {
+  color: var(--logo-text-secondary);
+  background: linear-gradient(90deg, var(--accent-secondary), var(--logo-text-secondary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+/* Navbar Links */
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+}
+
+.navbar-links li {
+  margin: 0;
+}
+
+.navbar-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.navbar-links a:hover {
+  color: var(--accent-primary);
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transition: width 0.3s ease;
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+/* Button Styles */
+.navbar-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.navbar-btn {
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  border: none;
+}
+
+.login-btn {
+  background: var(--btn-secondary-bg);
+  color: var(--accent-primary);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.login-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(94, 96, 206, 0.1) 0%, rgba(105, 48, 195, 0.1) 100%);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.login-btn:hover {
+  color: var(--accent-secondary);
+  border-color: var(--accent-primary);
+  box-shadow: 0 2px 10px rgba(94, 96, 206, 0.15);
+}
+
+.login-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.signup-btn {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: 0 4px 12px rgba(94, 96, 206, 0.25);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.signup-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #6930c3 0%, #5e60ce 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.signup-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(94, 96, 206, 0.35);
+}
+
+.signup-btn:hover::before {
+  opacity: 1;
+}
+
+.dashboard-btn {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: 0 4px 12px rgba(94, 96, 206, 0.25);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.dashboard-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #6930c3 0%, #5e60ce 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.dashboard-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(94, 96, 206, 0.35);
+}
+
+.dashboard-btn:hover::before {
+  opacity: 1;
+}
+
+.logout-btn {
+  background-color: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.logout-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.05) 0%, rgba(255, 59, 48, 0.1) 100%);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.logout-btn:hover {
+  background-color: transparent;
+  color: #ff3b30;
+  border-color: #ff3b30;
+  box-shadow: 0 2px 10px rgba(255, 59, 48, 0.15);
+}
+
+.logout-btn:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Mobile Toggle Button */
+.navbar-mobile-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--accent-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.navbar-mobile-toggle svg {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.navbar-mobile-toggle:hover {
+  transform: scale(1.1);
+  color: var(--accent-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    height: auto;
+    min-height: 60px;
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .navbar-right {
+    flex-direction: column;
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .navbar-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: -1;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+  }
+  
+  .navbar-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding: 1rem 0;
+    display: none;
+    margin-top: 2.5rem;
+    gap: 1rem;
+  }
+  
+  .navbar-buttons {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 0.5rem;
+    display: none;
+  }
+  
+  .navbar.menu-open .navbar-links,
+  .navbar.menu-open .navbar-buttons {
+    display: flex;
+  }
+  
+  .navbar-btn {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.25rem 0;
+    text-align: center;
+  }
+  
+  .navbar-links a {
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+  }
+  
+  .navbar-logo {
+    margin-bottom: 2rem;
+  }
+  
+  .navbar.menu-open {
+    height: auto;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Animation Effects */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.navbar {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.navbar-logo h1 {
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar-logo h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--logo-text-primary), var(--logo-text-secondary));
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.navbar-logo:hover h1::after {
+  transform: translateX(0);
+}
+
+/* Glassmorphism effect for navbar when scrolled */
+.navbar-scrolled {
+  background: var(--navbar-bg-scrolled);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Active link indicator */
+.navbar-links a.active {
+  color: var(--accent-primary);
+}
+
+.navbar-links a.active::after {
+  width: 100%;
+}

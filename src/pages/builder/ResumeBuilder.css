@@ -1,0 +1,289 @@
+.resume-builder-container {
+  padding: 6rem 5% 2rem; /* Increased top padding to accommodate navbar */
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+.builder-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 3rem; /* Increased bottom margin for better spacing */
+  text-align: center;
+  position: relative;
+}
+
+.template-selection-section {
+  margin-bottom: 3rem;
+}
+
+.template-selection-section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 1.5rem;
+}
+
+.resume-editor-section {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.form-container {
+  flex: 1;
+  max-width: 50%;
+  min-width: 400px;
+}
+
+.preview-container {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.preview-sticky {
+  position: sticky;
+  top: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background-color: white;
+  overflow: hidden; /* Ensures content doesn't overflow */
+  padding-bottom: 1rem;
+}
+
+/* PDF image container */
+.pdf-image-container {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+/* PDF image placeholder styling */
+.pdf-image-placeholder {
+  background-color: #f1f3f5;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pdf-image-placeholder:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.pdf-image-placeholder i {
+  font-size: 2.5rem;
+  color: #adb5bd;
+  margin-bottom: 1rem;
+}
+
+.pdf-image-placeholder p {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* For actual PDF images */
+.pdf-image {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.ai-assistant-section {
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+/* AI suggestion button for input fields */
+.ai-suggest-button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #4a6cf7, #6e56cf);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.ai-suggest-button:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 2px 8px rgba(74, 108, 247, 0.4);
+}
+
+/* AI suggestion modal */
+.ai-suggestion-modal {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  min-width: 250px;
+  z-index: 10;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.suggestion-option {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.suggestion-option:hover {
+  background-color: #f1f3f5;
+}
+
+.suggestion-option:last-child {
+  margin-bottom: 0;
+}
+
+/* Highlight effect for recently changed field */
+.highlight-change {
+  animation: highlight 1.5s ease-out;
+}
+
+@keyframes highlight {
+  0% { background-color: rgba(255, 255, 0, 0.3); }
+  100% { background-color: transparent; }
+}
+
+/* Split view toggle button */
+.split-view-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Field with AI suggestion button */
+.field-with-ai {
+  position: relative;
+}
+
+.field-with-ai input,
+.field-with-ai textarea {
+  padding-right: 40px;
+}
+
+/* Optimize text button */
+.optimize-text-button {
+  background: linear-gradient(135deg, #4a6cf7, #6e56cf);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.optimize-text-button i {
+  margin-right: 5px;
+  font-size: 0.9rem;
+}
+
+.optimize-text-button:hover {
+  background: linear-gradient(135deg, #3a5bd7, #5e46bf);
+  transform: translateY(-1px);
+}
+
+/* Responsive layouts */
+@media (max-width: 1200px) {
+  .resume-editor-section {
+    flex-direction: column;
+  }
+  
+  .form-container {
+    max-width: 100%;
+    min-width: auto;
+  }
+  
+  .split-view-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .preview-container {
+    max-width: 100%;
+    display: none;
+  }
+  
+  .preview-sticky {
+    position: static;
+  }
+  
+  /* Show preview when toggled */
+  .resume-editor-section.show-preview-mobile .form-container {
+    display: none;
+  }
+  
+  .resume-editor-section.show-preview-mobile .preview-container {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    z-index: 10;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}

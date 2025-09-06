@@ -1,0 +1,142 @@
+.skills-form {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.skills-form h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.add-skill-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.add-skill-inputs {
+  display: flex;
+  gap: 15px;
+}
+
+.add-skill-inputs > div:first-child {
+  flex: 2;
+}
+
+.add-skill-inputs > div:last-child {
+  flex: 1;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.skill-pill {
+  display: flex;
+  align-items: center;
+  background-color: #f1f2f6;
+  border-radius: 30px;
+  padding: 5px 15px;
+  font-size: 14px;
+  position: relative;
+}
+
+.skill-pill[data-level="beginner"] {
+  background-color: #f1f2f6;
+}
+
+.skill-pill[data-level="intermediate"] {
+  background-color: #dff9fb;
+}
+
+.skill-pill[data-level="advanced"] {
+  background-color: #c7ecee;
+}
+
+.skill-pill[data-level="expert"] {
+  background-color: #a3e4db;
+}
+
+.skill-name {
+  font-weight: 500;
+}
+
+.skill-level {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-left: 6px;
+  padding-left: 6px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.remove-skill {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 5px;
+  color: #666;
+  padding: 0 5px;
+}
+
+.remove-skill:hover {
+  color: #e74c3c;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 20px 15px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px dashed #ddd;
+  margin-bottom: 20px;
+}
+
+.empty-state p {
+  color: #666;
+  margin: 0;
+}
+
+.skills-tips {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+}
+
+.skills-tips h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 16px;
+}
+
+.skills-tips ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.skills-tips li {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .add-skill-inputs {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

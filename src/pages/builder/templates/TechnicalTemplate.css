@@ -1,0 +1,317 @@
+.technical-template {
+  font-family: 'Source Sans Pro', 'Roboto', sans-serif;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: white;
+  height: 100%;
+  padding: 25px;
+}
+
+/* Header */
+.tech-header {
+  margin-bottom: 20px;
+  border-bottom: 2px solid #0366d6;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.tech-name-title h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #24292e;
+  font-weight: 600;
+}
+
+.tech-name-title h2 {
+  margin: 5px 0 0;
+  font-size: 16px;
+  color: #0366d6;
+  font-weight: 400;
+}
+
+.tech-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: #586069;
+}
+
+.tech-contact-item:not(:last-child)::after {
+  content: "•";
+  margin-left: 10px;
+}
+
+/* Layout */
+.tech-layout {
+  display: flex;
+  gap: 25px;
+}
+
+.tech-left-column {
+  width: 30%;
+}
+
+.tech-right-column {
+  flex: 1;
+}
+
+/* Sections */
+.tech-section {
+  margin-bottom: 25px;
+}
+
+.tech-section-title {
+  font-size: 16px;
+  color: #24292e;
+  margin: 0 0 12px;
+  font-weight: 600;
+  border-bottom: 1px solid #e1e4e8;
+  padding-bottom: 5px;
+}
+
+/* Skills */
+.tech-skill-category {
+  margin-bottom: 15px;
+}
+
+.tech-skill-category h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #24292e;
+}
+
+.tech-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.tech-skill-tag {
+  font-size: 12px;
+  padding: 2px 8px;
+  background-color: #f1f8ff;
+  border: 1px solid #c8e1ff;
+  border-radius: 3px;
+  color: #0366d6;
+}
+
+/* Education */
+.tech-education-item {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tech-education-item:last-child {
+  border-bottom: none;
+}
+
+.tech-edu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 3px;
+}
+
+.tech-edu-header h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #24292e;
+}
+
+.tech-edu-date {
+  font-size: 12px;
+  color: #586069;
+  white-space: nowrap;
+}
+
+.tech-edu-degree {
+  font-size: 13px;
+  margin-bottom: 2px;
+  color: #444;
+}
+
+.tech-edu-location {
+  font-size: 12px;
+  color: #586069;
+  margin-bottom: 5px;
+}
+
+.tech-edu-description {
+  font-size: 12px;
+  margin: 5px 0 0;
+  color: #444;
+}
+
+/* Projects */
+.tech-project-item {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tech-project-item:last-child {
+  border-bottom: none;
+}
+
+.tech-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 3px;
+}
+
+.tech-project-header h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0366d6;
+}
+
+.tech-project-date {
+  font-size: 12px;
+  color: #586069;
+  white-space: nowrap;
+}
+
+.tech-project-role {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.tech-project-description {
+  font-size: 12px;
+  margin: 5px 0;
+  color: #444;
+}
+
+.tech-project-tech {
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #586069;
+}
+
+.tech-project-tech strong {
+  font-weight: 600;
+  color: #24292e;
+}
+
+.tech-project-url a {
+  font-size: 12px;
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.tech-project-url a:hover {
+  text-decoration: underline;
+}
+
+/* Summary */
+.tech-summary-section {
+  background-color: #f6f8fa;
+  border-left: 3px solid #0366d6;
+  padding: 10px 15px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.tech-summary-section p {
+  margin: 0;
+  font-size: 13px;
+  color: #444;
+}
+
+/* Experience */
+.tech-experience-item {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+.tech-experience-item:last-child {
+  border-bottom: none;
+}
+
+.tech-exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 3px;
+}
+
+.tech-exp-header h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #24292e;
+}
+
+.tech-exp-date {
+  font-size: 12px;
+  color: #586069;
+  white-space: nowrap;
+}
+
+.tech-exp-company {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 2px;
+}
+
+.tech-exp-location {
+  font-size: 12px;
+  color: #586069;
+  margin-bottom: 5px;
+}
+
+.tech-exp-description {
+  font-size: 13px;
+  color: #444;
+  margin-top: 8px;
+  white-space: pre-line;
+}
+
+/* Empty state */
+.empty-template {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  background-color: #f9f9f9;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+}
+
+.empty-template p {
+  max-width: 300px;
+}
+
+/* Responsive adjustments for preview */
+@media (max-width: 768px) {
+  .tech-layout {
+    flex-direction: column;
+  }
+  
+  .tech-left-column {
+    width: 100%;
+  }
+}

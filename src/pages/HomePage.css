@@ -1,0 +1,19 @@
+/* HomePage.css */
+
+/* Add top padding to compensate for fixed navbar */
+.hero-section {
+  padding-top: 90px; /* 70px navbar height + 20px extra space */
+}
+
+/* Style that responds to theme */
+.hero-section {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 70px;
+  }
+}

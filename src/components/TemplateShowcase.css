@@ -1,0 +1,499 @@
+/* Main Section Styles */
+.template-showcase {
+  padding: 6rem 0;
+  background: linear-gradient(to bottom, #f9fafb 0%, #f0f2f5 100%);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.template-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(66, 153, 225, 0.04) 0%, transparent 25%),
+    radial-gradient(circle at 80% 70%, rgba(76, 81, 191, 0.04) 0%, transparent 25%);
+  pointer-events: none;
+}
+
+/* Particle styling */
+.template-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4a6bff, #2590eb);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #4a6bff, #2590eb);
+  border-radius: 2px;
+}
+
+.section-header h2 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #0e2340;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.section-header p {
+  font-size: 1.2rem;
+  color: #425466;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Carousel Styles */
+.carousel-container {
+  position: relative;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: visible;
+  height: 500px;
+  box-sizing: border-box;
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.template-highlight {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 0 2%;
+  box-sizing: border-box;
+}
+
+.template-display {
+  display: flex;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+  width: 100%;
+}
+
+.template-preview-large {
+  flex: 1.5;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f9fafb 0%, rgba(var(--accent-color-rgb), 0.05) 100%);
+}
+
+.template-preview-large::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(var(--accent-color-rgb), 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.template-details {
+  flex: 1;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.template-details h3 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #0e2340;
+  position: relative;
+}
+
+.template-details h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--accent-color, #4a6bff);
+  border-radius: 2px;
+}
+
+.template-desc {
+  font-size: 1.1rem;
+  color: #425466;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.template-features {
+  margin-bottom: 2rem;
+}
+
+.template-features h4 {
+  font-size: 1.2rem;
+  color: #0e2340;
+  margin-bottom: 0.8rem;
+}
+
+.template-features ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.template-features li {
+  padding: 0.5rem 0 0.5rem 1.8rem;
+  position: relative;
+  color: #425466;
+}
+
+.template-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background-color: var(--accent-color, #4a6bff);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+/* Resume Template Mockup */
+.template-mockup {
+  width: 75%;
+  height: 90%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+
+.mockup-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--accent-color, #4a6bff);
+  opacity: 0.9;
+}
+
+.mockup-sidebar {
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(var(--accent-color-rgb), 0.05) 0%, rgba(var(--accent-color-rgb), 0.15) 100%);
+  position: relative;
+  padding-top: 80px;
+}
+
+.mockup-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent-color, #4a6bff);
+  opacity: 0.2;
+}
+
+.mockup-sidebar::after {
+  content: '';
+  position: absolute;
+  top: 180px;
+  left: 20px;
+  right: 20px;
+  height: 100px;
+  background: white;
+  opacity: 0.7;
+  border-radius: 4px;
+  box-shadow: 
+    0 15px 0 0 white,
+    0 35px 0 0 white;
+}
+
+.mockup-content {
+  flex: 1;
+  padding: 80px 20px 20px;
+}
+
+.mockup-section {
+  height: 30px;
+  background: #f0f2f5;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.mockup-section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 40px;
+  width: 100%;
+  height: 60px;
+  background: rgba(240, 242, 245, 0.5);
+  border-radius: 4px;
+}
+
+.mockup-section.short {
+  width: 60%;
+}
+
+/* Carousel Controls */
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.carousel-control {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #0e2340;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  position: relative;
+  z-index: 15;
+}
+
+.carousel-control:hover {
+  background: #f8f9fa;
+  color: var(--accent-color, #4a6bff);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Template Action Button */
+.use-template-btn {
+  background: var(--button-color, #4a6bff);
+  color: white;
+  border: none;
+  padding: 1rem 2.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(var(--button-color-rgb), 0.3);
+  align-self: flex-start;
+  margin-top: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.use-template-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  z-index: -1;
+}
+
+.use-template-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(var(--button-color-rgb), 0.4);
+}
+
+.use-template-btn:hover::after {
+  transform: translateX(100%);
+}
+
+.use-template-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.use-template-btn:hover svg {
+  transform: translateX(3px);
+}
+
+/* CSS Variables for Template Colors */
+:root {
+  --accent-color: #4a6bff;
+  --accent-color-rgb: 74, 107, 255;
+  --button-color: #4a6bff;
+  --button-color-rgb: 74, 107, 255;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .template-display {
+    flex-direction: column;
+  }
+  
+  .carousel-container {
+    height: 700px;
+    width: 90%;
+    max-width: 800px;
+  }
+  
+  .template-preview-large {
+    flex: none;
+    height: 50%;
+  }
+  
+  .template-details {
+    flex: none;
+    height: 50%;
+    padding: 2.5rem;
+  }
+  
+  .template-mockup {
+    width: 60%;
+    height: 80%;
+  }
+  
+  .carousel-controls {
+    padding: 0 10px;
+  }
+  
+  .carousel-control {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 900px) {
+  .carousel-container {
+    height: 750px;
+  }
+}
+
+@media (max-width: 768px) {
+  .template-showcase {
+    padding: 4rem 0 5rem;
+  }
+  
+  .section-header {
+    padding: 0 5%;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .section-header p {
+    font-size: 1rem;
+  }
+  
+  .carousel-container {
+    height: 680px;
+    margin-bottom: 5rem;
+    width: 95%;
+  }
+  
+  .template-details {
+    padding: 1.5rem 2rem;
+  }
+  
+  .template-details h3 {
+    font-size: 1.8rem;
+  }
+  
+  .template-desc {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .template-features ul {
+    margin-bottom: 0.5rem;
+  }
+  
+  .use-template-btn {
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .carousel-control {
+    width: 40px;
+    height: 40px;
+    top: -5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-container {
+    height: 720px;
+  }
+  
+  .template-features li {
+    padding: 0.4rem 0 0.4rem 1.8rem;
+  }
+  
+  .carousel-control {
+    width: 36px;
+    height: 36px;
+  }
+}

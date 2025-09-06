@@ -1,0 +1,125 @@
+.template-selector {
+  margin-bottom: 2rem;
+}
+
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+.template-card {
+  background-color: white;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.template-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.template-card.selected {
+  border-color: #007bff;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.template-preview {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+}
+
+.template-thumbnail {
+  width: 100%;
+  height: 100%;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumbnail-placeholder {
+  background: linear-gradient(45deg, #f8f9fa 25%, #e9ecef 25%, #e9ecef 50%, #f8f9fa 50%, #f8f9fa 75%, #e9ecef 75%);
+  background-size: 20px 20px;
+  width: 70%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.thumbnail-placeholder::after {
+  content: "";
+  position: absolute;
+  width: 70%;
+  height: 1px;
+  background-color: #ced4da;
+  top: 25%;
+  left: 15%;
+  box-shadow: 0 20px 0 #ced4da, 0 40px 0 #ced4da, 0 60px 0 #ced4da, 0 80px 0 #ced4da, 0 100px 0 #ced4da;
+}
+
+.thumbnail-placeholder span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #007bff;
+}
+
+.selected-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 123, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkmark {
+  width: 40px;
+  height: 40px;
+  background-color: #007bff;
+  border-radius: 50%;
+  position: relative;
+}
+
+.checkmark::after {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  width: 10px;
+  height: 15px;
+  border-right: 3px solid white;
+  border-bottom: 3px solid white;
+  transform: rotate(45deg);
+}
+
+.template-info {
+  padding: 1rem;
+}
+
+.template-info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 0.5rem;
+}
+
+.template-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
