@@ -10,7 +10,27 @@ import './Dashboard.css';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { currentUser, isAuthenticated } = useAuth();
+  const { currentUser, isAuthenticated, isLoading } = useAuth();
+  
+  // Authentication check
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate('/login', { replace: true });
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+  
+  // Show loading or redirect if not authenticated
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">Loading...</div>
+      </div>
+    );
+  }
+  
+  if (!isAuthenticated) {
+    return null; // Will redirect in useEffect
+  }
   
   // State for user data (will be fetched from backend)
   const [user, setUser] = useState(currentUser || {

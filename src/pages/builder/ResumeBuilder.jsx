@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import TemplateSelector from './TemplateSelector';
@@ -11,6 +13,29 @@ import './ResumeBuilder.css';
 // AI suggestions state is now handled inside AIAssistant component
 
 const ResumeBuilder = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated, isLoading } = useAuth();
+  
+  // Authentication check
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      navigate('/login', { replace: true });
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+  
+  // Show loading or redirect if not authenticated
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">Loading...</div>
+      </div>
+    );
+  }
+  
+  if (!isAuthenticated) {
+    return null; // Will redirect in useEffect
+  }
+
   // Selected template
   const [selectedTemplate, setSelectedTemplate] = useState('professional');
   // Track what field was last updated for highlighting
