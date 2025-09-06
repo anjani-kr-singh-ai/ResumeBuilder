@@ -1,19 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../../context/AuthContext';
+import apiService from '../../utils/api';
 import './ResumeList.css';
 
-const ResumeList = ({ resumes, onEdit, onDownload, onDelete, onCreateNew }) => {
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+const ResumeList = ({ onCreateNew }) => {
+  const { currentUser } = useAuth();
+  const [resumes, setResumes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState(null);
+  
+  // Fetch user resumes from backend
+  useEffect(() => {
+    const fetchResumes = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const response = await apiService.getUserResumes();
+        setResumes(response.resumes || []);
+      } catch (error) {
+        console.error('Error fetching resumes:', error);
+        setError('Failed to load resumes');
+        setResumes([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (currentUser) {
+      fetchResumes();
+    }
+  }, [currentUser]);
   
   // Filter resumes based on search term
   const filteredResumes = resumes.filter(resume => 
-    resume.title.toLowerCase().includes(searchTerm.toLowerCase())
+    resume.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   // Format date function
   const formatDate = (dateString) => {
+    if (!dateString) {
+      return 'Unknown';
+    }
+    
     const date = new Date(dateString);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return 'Invalid Date';
+    }
+    
     return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: 'short',
@@ -21,6 +58,45 @@ const ResumeList = ({ resumes, onEdit, onDownload, onDelete, onCreateNew }) => {
       hour: '2-digit',
       minute: '2-digit'
     }).format(date);
+  };
+
+  // Handle download resume
+  const handleDownloadResume = async (resumeId, resumeName) => {
+    try {
+      const blob = await apiService.downloadResume(resumeId);
+      
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${resumeName}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      alert('Failed to download resume. Please try again.');
+    }
+  };
+
+  // Handle delete resume
+  const handleDeleteResume = async (resumeId) => {
+    if (!window.confirm('Are you sure you want to delete this resume? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await apiService.deleteResume(resumeId);
+      // Remove from local state
+      setResumes(resumes.filter(resume => resume.id !== resumeId));
+      alert('Resume deleted successfully');
+    } catch (error) {
+      console.error('Error deleting resume:', error);
+      alert('Failed to delete resume. Please try again.');
+    }
   };
 
   const containerVariants = {
@@ -53,6 +129,27 @@ const ResumeList = ({ resumes, onEdit, onDownload, onDelete, onCreateNew }) => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="resume-list-container">
+        <div className="loading-container">
+          <div className="loading-spinner">Loading resumes...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="resume-list-container">
+        <div className="error-container">
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>Retry</button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="resume-list-container">
       <div className="resume-list-header">
@@ -67,20 +164,6 @@ const ResumeList = ({ resumes, onEdit, onDownload, onDelete, onCreateNew }) => {
               className="search-input"
             />
           </div>
-          <div className="view-toggle">
-            <button 
-              className={`view-button ${viewMode === 'grid' ? 'active' : ''}`}
-              onClick={() => setViewMode('grid')}
-            >
-              Grid
-            </button>
-            <button 
-              className={`view-button ${viewMode === 'list' ? 'active' : ''}`}
-              onClick={() => setViewMode('list')}
-            >
-              List
-            </button>
-          </div>
         </div>
       </div>
       
@@ -93,19 +176,21 @@ const ResumeList = ({ resumes, onEdit, onDownload, onDelete, onCreateNew }) => {
         >
           <div className="no-resumes-icon">📄</div>
           <h3>No resumes found</h3>
-          <p>Create your first resume to get started!</p>
-          <motion.button 
-            className="create-resume-button"
-            onClick={onCreateNew}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Create Resume
-          </motion.button>
+          <p>{resumes.length === 0 ? 'Create your first resume to get started!' : 'No resumes match your search.'}</p>
+          {resumes.length === 0 && (
+            <motion.button 
+              className="create-resume-button"
+              onClick={onCreateNew}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Create Resume
+            </motion.button>
+          )}
         </motion.div>
       ) : (
         <motion.div 
-          className={`resume-items-container ${viewMode}`}
+          className="resume-items-container list"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -114,45 +199,34 @@ const ResumeList = ({ resumes, onEdit, onDownload, onDelete, onCreateNew }) => {
             {filteredResumes.map(resume => (
               <motion.div 
                 key={resume.id} 
-                className={`resume-item ${viewMode}`}
+                className="resume-item list"
                 variants={itemVariants}
                 layout
                 whileHover={{ 
-                  y: -5,
-                  boxShadow: "0 12px 25px rgba(0, 0, 0, 0.15)"
+                  y: -2,
+                  boxShadow: "0 8px 20px rgba(0, 0, 0, 0.12)"
                 }}
               >
-                <div className="resume-thumbnail">
-                  {resume.thumbnail ? (
-                    <img src={resume.thumbnail} alt={resume.title} />
-                  ) : (
-                    <div className="thumbnail-placeholder">
-                      <span>{resume.template[0]}</span>
-                    </div>
-                  )}
+                <div className="resume-icon">
+                  <span>📄</span>
                 </div>
                 
                 <div className="resume-details">
-                  <h3>{resume.title}</h3>
+                  <h3>{resume.name}</h3>
                   <div className="resume-meta">
                     <span className="resume-template">{resume.template}</span>
-                    <span className="resume-date">Last modified: {formatDate(resume.lastModified)}</span>
+                    <span className="resume-date">Modified: {formatDate(resume.updatedAt)}</span>
+                    <span className="resume-size">
+                      Size: {(resume.originalSize / 1024).toFixed(1)} KB 
+                      (Compressed: {(resume.compressedSize / 1024).toFixed(1)} KB)
+                    </span>
                   </div>
                 </div>
                 
                 <div className="resume-actions">
                   <motion.button 
-                    className="action-button edit"
-                    onClick={() => onEdit(resume.id)}
-                    title="Edit Resume"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Edit
-                  </motion.button>
-                  <motion.button 
                     className="action-button download"
-                    onClick={() => onDownload(resume.id)}
+                    onClick={() => handleDownloadResume(resume.id, resume.name)}
                     title="Download Resume"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -161,7 +235,7 @@ const ResumeList = ({ resumes, onEdit, onDownload, onDelete, onCreateNew }) => {
                   </motion.button>
                   <motion.button 
                     className="action-button delete"
-                    onClick={() => onDelete(resume.id)}
+                    onClick={() => handleDeleteResume(resume.id)}
                     title="Delete Resume"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}

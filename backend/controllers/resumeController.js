@@ -162,8 +162,8 @@ const downloadResume = async (req, res) => {
       });
     }
 
-    // Read compressed file
-    const compressedData = await fs.readFile(resume.filePath);
+    // Read compressed file - fix: use file_path instead of filePath
+    const compressedData = await fs.readFile(resume.file_path);
     
     // Decompress PDF
     const pdfBuffer = await decompressPDF(compressedData);
