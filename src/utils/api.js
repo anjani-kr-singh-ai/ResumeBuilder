@@ -89,6 +89,45 @@ class ApiService {
       body: JSON.stringify(profileData),
     });
   }
+
+  // Resume endpoints
+  async saveResumeToCloud(resumeData, template, resumeName, pdfBlob) {
+    const formData = new FormData();
+    formData.append('resumePdf', pdfBlob, `${resumeName}.pdf`);
+    formData.append('resumeData', JSON.stringify(resumeData));
+    formData.append('template', template);
+    formData.append('resumeName', resumeName);
+
+    return this.request('/resumes/save', {
+      method: 'POST',
+      body: formData,
+      headers: {}, // Remove Content-Type to let browser set it for FormData
+    });
+  }
+
+  async getUserResumes() {
+    return this.request('/resumes/list');
+  }
+
+  async downloadResume(resumeId) {
+    const response = await fetch(`${this.baseURL}/resumes/download/${resumeId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to download resume');
+    }
+
+    return response.blob();
+  }
+
+  async deleteResume(resumeId) {
+    return this.request(`/resumes/delete/${resumeId}`, {
+      method: 'DELETE',
+    });
+  }
 }
 
 export default new ApiService();

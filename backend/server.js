@@ -8,10 +8,25 @@ require('dotenv').config();
 const { testConnection, initializeDatabase } = require('./config/db');
 const { testEmailConfig } = require('./utils/sendEmail');
 const authRoutes = require('./routes/authRoutes');
+const resumeRoutes = require('./routes/resumeRoutes');
 const User = require('./models/User');
+const fs = require('fs').promises;
+const path = require('path');
 
+// Initialize Express app
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Ensure storage directory exists
+const ensureStorageDirectory = async () => {
+  const storageDir = path.join(__dirname, 'storage', 'Resumes');
+  try {
+    await fs.access(storageDir);
+  } catch (error) {
+    await fs.mkdir(storageDir, { recursive: true });
+    console.log('✅ Storage directory created');
+  }
+};
 
 // Security middleware
 app.use(helmet());
@@ -51,6 +66,7 @@ app.get('/health', (req, res) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
+app.use('/api/resumes', resumeRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {
@@ -103,6 +119,9 @@ const startServer = async () => {
     process.exit(1);
   }
 };
+
+// Call this before starting the server
+ensureStorageDirectory();
 
 startServer();
 

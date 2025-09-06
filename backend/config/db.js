@@ -10,10 +10,8 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT || 3306,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0,
-  acquireTimeout: 60000,
-  timeout: 60000,
-  reconnect: true
+  queueLimit: 0
+  // Removed: acquireTimeout, timeout, reconnect (invalid for MySQL2)
 });
 
 // Test database connection
@@ -61,17 +59,23 @@ const initializeDatabase = async () => {
       )
     `);
     
-    // Create resumes table (for future use)
+    // Create resumes table (for cloud storage)
     await connection.execute(`
       CREATE TABLE IF NOT EXISTS resumes (
-        id INT AUTO_INCREMENT PRIMARY KEY,
+        id VARCHAR(36) PRIMARY KEY,
         user_id INT NOT NULL,
-        title VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         template VARCHAR(100) NOT NULL,
-        content JSON,
+        filename VARCHAR(255) NOT NULL,
+        file_path VARCHAR(500) NOT NULL,
+        original_size INT NOT NULL,
+        compressed_size INT NOT NULL,
+        resume_data JSON,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        INDEX idx_user_id (user_id),
+        INDEX idx_created_at (created_at)
       )
     `);
     
